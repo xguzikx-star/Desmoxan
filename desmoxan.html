@@ -17,7 +17,6 @@
     padding: env(safe-area-inset-top, 20px) 0 env(safe-area-inset-bottom, 20px);
   }
 
-  /* TAB BAR */
   .tabs {
     display: flex;
     background: #161e2c;
@@ -43,7 +42,6 @@
   .view { display: none; padding: 20px 16px; max-width: 500px; margin: 0 auto; }
   .view.active { display: block; }
 
-  /* SHARED COMPONENTS */
   .eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #4ECDC4; font-weight: 600; }
   h1 { font-size: 24px; font-weight: 700; margin: 4px 0 2px; color: #fff; }
   .subtitle { font-size: 13px; color: #6a7590; margin-bottom: 20px; }
@@ -106,7 +104,6 @@
   }
   .footer-note { text-align: center; font-size: 11px; color: #2a3448; padding-bottom: 20px; }
 
-  /* DAY SELECTOR GRID */
   .day-grid { display: flex; flex-wrap: wrap; gap: 6px; }
   .day-btn {
     width: 36px; height: 36px; border-radius: 8px;
@@ -126,7 +123,6 @@
   .dot-green { background: #4ECDC4; }
   .dot-red { background: #ff4d4d; }
 
-  /* DOSE ROWS */
   .dose-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
   .dose-row {
     display: flex; align-items: center; gap: 14px;
@@ -170,7 +166,6 @@
   .dose-icon.done-icon { color: #4ECDC460; }
   .dose-icon.missed-icon { color: #ff4d4d40; }
 
-  /* 25-DAY CHECKLIST */
   .day-list { display: flex; flex-direction: column; gap: 8px; }
   .day-item {
     display: flex; align-items: center; gap: 12px;
@@ -210,7 +205,6 @@
   }
   .day-meta { font-size: 12px; color: #6a7590; margin-top: 2px; }
 
-  /* SCHEDULE LEGEND */
   .legend { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
   .legend-row {
     display: flex; align-items: center; gap: 10px;
@@ -226,7 +220,6 @@
   .legend-text { color: #c0c8d8; }
   .legend-note { margin-left: auto; font-size: 12px; color: #ff7070; }
 
-  /* OVERALL PROGRESS */
   .big-progress {
     background: #1e2636; border-radius: 12px; padding: 16px 20px; margin-bottom: 18px;
   }
@@ -243,7 +236,6 @@
   <div class="tab" onclick="switchTab('kuracja')" id="tab-kuracja">📅 25 dni</div>
 </div>
 
-<!-- ===================== DAILY VIEW ===================== -->
 <div class="view active" id="view-daily">
   <div class="eyebrow">Desmoxan · dzienna dawka</div>
   <h1>Harmonogram dawek</h1>
@@ -289,7 +281,6 @@
   <div class="footer-note">Jeden dzień na raz. Dasz radę. 💪</div>
 </div>
 
-<!-- ===================== KURACJA VIEW ===================== -->
 <div class="view" id="view-kuracja">
   <div class="eyebrow">Desmoxan · 25 dni</div>
   <h1>Twój plan rzucenia palenia</h1>
@@ -358,7 +349,6 @@ function formatDate(d) {
   return d.toLocaleDateString("pl-PL", { weekday: "long", day: "numeric", month: "long" });
 }
 
-// --- STORAGE ---
 function load() {
   try { return JSON.parse(localStorage.getItem("desmoxan_v3") || "{}"); } catch { return {}; }
 }
@@ -397,15 +387,34 @@ function buildSchedule(day) {
       ? baseTimes[i+1].h * 60 + baseTimes[i+1].m
       : tMin + cfg.intervalMin;
     const done = !!dayChecks[i];
+    // FIX: a slot is only "missed" if it's not done AND time has passed AND it hasn't been saved as done
     const missed = !done && nowMin >= nextMin;
     return { h: t.h, m: t.m, done, missed, isMakeup: false, key: i };
   });
 
+  // FIX: count only base slots that are truly missed (not done, not already compensated)
   const missedCount = slots.filter(s => s.missed).length;
+
+  // FIX: count how many makeup slots are already done in state
+  const makeupAlreadyDone = [];
+  for (let i = 0; i < missedCount; i++) {
+    const makeupKey = cfg.tablets + i;
+    makeupAlreadyDone.push(!!dayChecks[makeupKey]);
+  }
+
   let lastTime = baseTimes[baseTimes.length - 1];
   for (let i = 0; i < missedCount; i++) {
     const next = addMins(lastTime.h, lastTime.m, cfg.intervalMin);
-    slots.push({ h: next.h, m: next.m, done: false, missed: false, isMakeup: true, key: cfg.tablets + i });
+    const makeupKey = cfg.tablets + i;
+    // FIX: read done state from storage for makeup slots
+    const makeupDone = !!dayChecks[makeupKey];
+    slots.push({
+      h: next.h, m: next.m,
+      done: makeupDone,
+      missed: false,
+      isMakeup: true,
+      key: makeupKey
+    });
     lastTime = next;
   }
   return slots;
@@ -424,17 +433,13 @@ function switchTab(tab) {
 function renderDaily() {
   const cfg = getCfg(selectedDay);
   const dayKey = "day_" + selectedDay;
-  const dayChecks = state[dayKey] || {};
   const slots = buildSchedule(selectedDay);
   const doneCount = slots.filter(s => s.done).length;
   const today = new Date(); today.setHours(0,0,0,0);
   const selDate = getDateForDay(selectedDay); selDate.setHours(0,0,0,0);
-  const isToday = selDate.getTime() === today.getTime();
 
-  // subtitle
   document.getElementById("daily-subtitle").textContent = "Pierwsza dawka: 9:30 · " + cfg.label;
 
-  // day grid
   const grid = document.getElementById("day-grid");
   grid.innerHTML = "";
   for (let d = 1; d <= 25; d++) {
@@ -455,7 +460,6 @@ function renderDaily() {
     grid.appendChild(btn);
   }
 
-  // info bar
   const infoBar = document.getElementById("daily-info-bar");
   infoBar.className = "info-bar" + (selectedDay === 5 ? " warning" : "");
   document.getElementById("daily-day-title").innerHTML =
@@ -464,11 +468,10 @@ function renderDaily() {
   document.getElementById("daily-day-date").textContent = formatDate(getDateForDay(selectedDay));
   document.getElementById("daily-count").innerHTML = doneCount + "<span>/" + cfg.tablets + "</span>";
 
-  // alerts
   document.getElementById("daily-stop-alert").style.display = (selectedDay > 5) ? "" : "none";
   document.getElementById("daily-progress-bar").style.width = Math.min((doneCount / cfg.tablets) * 100, 100) + "%";
 
-  // dose list
+  // FIX: nextIdx should skip done makeup slots too
   const nextIdx = slots.findIndex(s => !s.done && !s.missed);
   const list = document.getElementById("dose-list");
   list.innerHTML = "";
@@ -516,6 +519,7 @@ function renderDaily() {
       </div>
       <div class="${iconClass}">${iconContent}</div>
     `;
+    // FIX: makeup slots are clickable — no longer excluded from onclick
     if (!slot.missed) {
       row.onclick = () => {
         const dk = "day_" + selectedDay;
@@ -529,7 +533,6 @@ function renderDaily() {
     list.appendChild(row);
   });
 
-  // bottom alerts
   document.getElementById("makeup-alert").style.display = slots.some(s => s.isMakeup) ? "" : "none";
   document.getElementById("daily-21-alert").style.display = selectedDay >= 21 ? "" : "none";
   document.getElementById("daily-done-alert").style.display = doneCount >= cfg.tablets ? "" : "none";
@@ -548,7 +551,6 @@ function resetDay() {
 function renderKuracja() {
   const today = new Date(); today.setHours(0,0,0,0);
 
-  // overall count = days where all doses done
   let overallDone = 0;
   for (let d = 1; d <= 25; d++) {
     const c = getCfg(d);
@@ -601,7 +603,6 @@ function renderKuracja() {
     item.onclick = () => {
       const dk = "day_" + day;
       if (!state[dk]) state[dk] = {};
-      // Toggle all doses as done/undone
       const nowDone = Object.values(state[dk]).filter(Boolean).length >= cfg.tablets;
       if (nowDone) {
         state[dk] = {};
@@ -619,10 +620,7 @@ function renderKuracjaIfActive() {
   if (document.getElementById("view-kuracja").classList.contains("active")) renderKuracja();
 }
 
-// --- INIT ---
 renderDaily();
-
-// Auto-refresh every minute
 setInterval(() => { renderDaily(); renderKuracjaIfActive(); }, 60000);
 </script>
 </body>
