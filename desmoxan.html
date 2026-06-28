@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Desmoxan">
+<title>Desmoxan</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+    background: #0f1623;
+    color: #e8eaf0;
+    min-height: 100vh;
+    padding: env(safe-area-inset-top, 20px) 0 env(safe-area-inset-bottom, 20px);
+  }
+
+  /* TAB BAR */
+  .tabs {
+    display: flex;
+    background: #161e2c;
+    border-bottom: 1px solid #1e2636;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .tab {
+    flex: 1;
+    padding: 14px 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #5a6580;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .tab.active { color: #4ECDC4; border-bottom-color: #4ECDC4; }
+
+  .view { display: none; padding: 20px 16px; max-width: 500px; margin: 0 auto; }
+  .view.active { display: block; }
+
+  /* SHARED COMPONENTS */
+  .eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #4ECDC4; font-weight: 600; }
+  h1 { font-size: 24px; font-weight: 700; margin: 4px 0 2px; color: #fff; }
+  .subtitle { font-size: 13px; color: #6a7590; margin-bottom: 20px; }
+
+  .card {
+    background: #1e2636;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .card-label {
+    font-size: 12px; color: #6a7590; margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  .progress-bar-wrap { background: #1e2636; border-radius: 6px; height: 6px; margin-bottom: 18px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, #4ECDC4, #45b7aa); border-radius: 6px; transition: width 0.3s ease; }
+
+  .info-bar {
+    background: #1e2636;
+    border: 1px solid #1e2636;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .info-bar.warning { background: #ff4d4d18; border-color: #ff4d4d50; }
+  .info-bar-title { font-weight: 700; font-size: 16px; color: #fff; }
+  .info-bar-sub { font-size: 12px; color: #6a7590; margin-top: 2px; }
+  .info-bar-count { font-size: 22px; font-weight: 700; color: #4ECDC4; text-align: right; }
+  .info-bar-count span { font-size: 14px; color: #6a7590; font-weight: 400; }
+  .info-bar-unit { font-size: 11px; color: #6a7590; }
+
+  .alert {
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .alert-red { background: #ff4d4d14; border: 1px solid #ff4d4d30; color: #ff9090; }
+  .alert-orange { background: #f5a62314; border: 1px solid #f5a62330; color: #f5c060; }
+  .alert-muted { background: #1e2636; border: 1px solid #1e2636; color: #8892a4; }
+  .alert-green { background: #1a2e2b; border: 1px solid #4ECDC460; color: #4ECDC4; text-align: center; font-weight: 600; font-size: 15px; }
+
+  .btn-reset {
+    background: transparent;
+    border: 1px solid #2a3448;
+    color: #6a7590;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 12px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto 20px;
+    font-family: inherit;
+  }
+  .footer-note { text-align: center; font-size: 11px; color: #2a3448; padding-bottom: 20px; }
+
+  /* DAY SELECTOR GRID */
+  .day-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+  .day-btn {
+    width: 36px; height: 36px; border-radius: 8px;
+    border: 2px solid transparent;
+    font-size: 13px; cursor: pointer;
+    position: relative; font-family: inherit;
+    transition: all 0.15s;
+  }
+  .day-btn.selected { border-color: #4ECDC4; background: #1e3040; color: #fff; font-weight: 700; }
+  .day-btn.done { background: #1a2e2b; color: #4ECDC4; font-weight: 600; }
+  .day-btn.normal { background: #161e2c; color: #5a6580; font-weight: 500; }
+  .dot {
+    position: absolute; top: -4px; right: -4px;
+    width: 10px; height: 10px; border-radius: 50%;
+    border: 2px solid #0f1623;
+  }
+  .dot-green { background: #4ECDC4; }
+  .dot-red { background: #ff4d4d; }
+
+  /* DOSE ROWS */
+  .dose-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .dose-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px; border-radius: 12px;
+    border: 1.5px solid #1e2636;
+    cursor: pointer; transition: all 0.2s; user-select: none;
+  }
+  .dose-row.done-row { background: #1a2e2b; border-color: #2d4a45; }
+  .dose-row.missed-row { background: #1e1620; border-color: #ff4d4d40; opacity: 0.6; cursor: default; }
+  .dose-row.next-row { background: #1c2840; border-color: #4ECDC460; }
+  .dose-row.makeup-row { background: #161e2c; border-color: #f5a62340; }
+  .dose-row.future-row { background: #161e2c; border-color: #1e2636; }
+
+  .checkbox {
+    width: 28px; height: 28px; border-radius: 8px;
+    border: 2px solid #3a4460; background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all 0.2s; font-size: 16px; font-weight: 800;
+  }
+  .checkbox.checked { background: #4ECDC4; border-color: #4ECDC4; color: #0f1623; }
+  .checkbox.missed-cb { border-color: #ff4d4d60; color: #ff4d4d90; }
+  .checkbox.makeup-cb { border-color: #f5a623aa; }
+
+  .dose-time {
+    font-size: 22px; font-weight: 700;
+    font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .dose-time.color-done { color: #4ECDC4; }
+  .dose-time.color-missed { color: #6a5060; }
+  .dose-time.color-makeup { color: #f5a623; }
+  .dose-time.color-next { color: #fff; }
+  .dose-time.color-future { color: #c0c8d8; }
+
+  .dose-sub { font-size: 12px; color: #6a7590; margin-top: 3px; }
+  .badge { font-weight: 600; margin-left: 8px; }
+  .badge-teal { color: #4ECDC4; }
+  .badge-red { color: #ff7070; }
+  .badge-orange { color: #f5a623; }
+
+  .dose-icon { font-size: 18px; color: #3a4460; }
+  .dose-icon.done-icon { color: #4ECDC460; }
+  .dose-icon.missed-icon { color: #ff4d4d40; }
+
+  /* 25-DAY CHECKLIST */
+  .day-list { display: flex; flex-direction: column; gap: 8px; }
+  .day-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-radius: 10px;
+    border: 1.5px solid #1e2636; background: #161e2c;
+    cursor: pointer; user-select: none; transition: all 0.2s;
+  }
+  .day-item.day-done { background: #1a2e2b; border-color: #2d4a45; }
+  .day-item.day-today { background: #1e2636; border-color: #4ECDC4; }
+
+  .day-cb {
+    width: 26px; height: 26px; border-radius: 6px;
+    border: 2px solid #3a4460; background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 15px; font-weight: 800; transition: all 0.2s;
+  }
+  .day-cb.checked { background: #4ECDC4; border-color: #4ECDC4; color: #0f1623; }
+
+  .day-name { font-weight: 700; font-size: 15px; }
+  .day-name.color-done { color: #4ECDC4; }
+  .day-name.color-today { color: #fff; }
+  .day-name.color-future { color: #606880; }
+  .day-name.color-past { color: #c0c8d8; }
+
+  .today-badge {
+    background: #4ECDC4; color: #0f1623;
+    font-size: 10px; font-weight: 700;
+    padding: 1px 7px; border-radius: 20px;
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-left: 6px;
+  }
+  .zero-badge {
+    background: #ff4d4d30; color: #ff7070;
+    font-size: 10px; font-weight: 700;
+    padding: 1px 7px; border-radius: 20px;
+    margin-left: 6px;
+  }
+  .day-meta { font-size: 12px; color: #6a7590; margin-top: 2px; }
+
+  /* SCHEDULE LEGEND */
+  .legend { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .legend-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px; border-radius: 8px;
+    background: #1e2636; font-size: 13px;
+  }
+  .legend-pill {
+    border-radius: 6px; padding: 2px 8px;
+    font-weight: 600; min-width: 70px; text-align: center; font-size: 12px;
+  }
+  .legend-pill.green { background: #4ECDC422; color: #4ECDC4; }
+  .legend-pill.red { background: #ff4d4d22; color: #ff7070; }
+  .legend-text { color: #c0c8d8; }
+  .legend-note { margin-left: auto; font-size: 12px; color: #ff7070; }
+
+  /* OVERALL PROGRESS */
+  .big-progress {
+    background: #1e2636; border-radius: 12px; padding: 16px 20px; margin-bottom: 18px;
+  }
+  .big-progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .big-progress-label { font-size: 13px; color: #6a7590; }
+  .big-progress-count { font-size: 20px; font-weight: 700; color: #4ECDC4; }
+  .big-progress-count span { font-size: 13px; color: #6a7590; font-weight: 400; }
+</style>
+</head>
+<body>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('daily')" id="tab-daily">💊 Dawki dziś</div>
+  <div class="tab" onclick="switchTab('kuracja')" id="tab-kuracja">📅 25 dni</div>
+</div>
+
+<!-- ===================== DAILY VIEW ===================== -->
+<div class="view active" id="view-daily">
+  <div class="eyebrow">Desmoxan · dzienna dawka</div>
+  <h1>Harmonogram dawek</h1>
+  <p class="subtitle" id="daily-subtitle">Pierwsza dawka: 9:30</p>
+
+  <div class="card">
+    <div class="card-label">Wybierz dzień kuracji</div>
+    <div class="day-grid" id="day-grid"></div>
+  </div>
+
+  <div class="info-bar" id="daily-info-bar">
+    <div>
+      <div class="info-bar-title" id="daily-day-title">Dzień 1</div>
+      <div class="info-bar-sub" id="daily-day-date"></div>
+    </div>
+    <div>
+      <div class="info-bar-count" id="daily-count">0<span>/6</span></div>
+      <div class="info-bar-unit">tabletki dziś</div>
+    </div>
+  </div>
+
+  <div class="alert alert-red" id="daily-stop-alert" style="display:none">
+    🚭 Jesteś po dniu 5. — zero papierosów.
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="daily-progress-bar" style="width:0%"></div>
+  </div>
+
+  <div class="dose-list" id="dose-list"></div>
+
+  <div class="alert alert-orange" id="makeup-alert" style="display:none">
+    ⏰ Masz pominięte dawki — dodałam uzupełniające na końcu dnia, żeby zachować pełną liczbę tabletek.
+  </div>
+  <div class="alert alert-muted" id="daily-21-alert" style="display:none">
+    💡 W dniach 21–25 możesz przyjąć 1 lub 2 tabletki — wg własnego odczucia głodu nikotynowego.
+  </div>
+  <div class="alert alert-green" id="daily-done-alert" style="display:none">
+    ✅ Wszystkie dawki na dziś przyjęte!
+  </div>
+
+  <button class="btn-reset" onclick="resetDay()">Resetuj ten dzień</button>
+  <div class="footer-note">Jeden dzień na raz. Dasz radę. 💪</div>
+</div>
+
+<!-- ===================== KURACJA VIEW ===================== -->
+<div class="view" id="view-kuracja">
+  <div class="eyebrow">Desmoxan · 25 dni</div>
+  <h1>Twój plan rzucenia palenia</h1>
+  <p class="subtitle">Start: 28 czerwca 2026 · Koniec: 22 lipca 2026</p>
+
+  <div class="big-progress">
+    <div class="big-progress-header">
+      <span class="big-progress-label">Ukończone dni</span>
+      <span class="big-progress-count" id="overall-count">0<span>/25</span></span>
+    </div>
+    <div class="progress-bar-wrap" style="margin-bottom:0">
+      <div class="progress-bar" id="overall-bar" style="width:0%"></div>
+    </div>
+    <div id="overall-done-msg" style="display:none;margin-top:12px;font-size:14px;color:#4ECDC4;font-weight:600;text-align:center">
+      🎉 Gratulacje! 25 dni bez papierosa!
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-row"><span class="legend-pill green">Dni 1–3</span><span class="legend-text"><strong>6 tabl./dzień</strong> · co ~2 godz.</span></div>
+    <div class="legend-row"><span class="legend-pill red">Dni 4–12</span><span class="legend-text"><strong>5 tabl./dzień</strong> · co ~2,5 godz.</span><span class="legend-note">🚭 od dnia 5. zero!</span></div>
+    <div class="legend-row"><span class="legend-pill red">Dni 13–16</span><span class="legend-text"><strong>4 tabl./dzień</strong> · co ~3 godz.</span></div>
+    <div class="legend-row"><span class="legend-pill red">Dni 17–20</span><span class="legend-text"><strong>3 tabl./dzień</strong> · co ~5 godz.</span></div>
+    <div class="legend-row"><span class="legend-pill red">Dni 21–25</span><span class="legend-text"><strong>1–2 tabl./dzień</strong> · wg uznania</span><span class="legend-note">Finisz!</span></div>
+  </div>
+
+  <div class="alert alert-red" style="margin-bottom:16px">
+    <strong style="color:#ff7070">⚠️ Kluczowa zasada:</strong> Nie później niż w dniu 5. musisz całkowicie rzucić palenie. Palenie w trakcie kuracji nasila skutki uboczne.
+  </div>
+
+  <div style="font-size:15px;font-weight:600;color:#8892a4;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Odznaczaj kolejne dni</div>
+  <div class="day-list" id="day-list"></div>
+
+  <div class="footer-note" style="margin-top:20px">Jeden dzień na raz. Dasz radę. 💪</div>
+</div>
+
+<script>
+const START_DATE = new Date("2026-06-28");
+
+const DAY_CONFIG = [
+  { days: [1,2,3],                 tablets: 6, intervalMin: 120, label: "co ~2 godz." },
+  { days: [4,5,6,7,8,9,10,11,12], tablets: 5, intervalMin: 150, label: "co ~2,5 godz." },
+  { days: [13,14,15,16],          tablets: 4, intervalMin: 180, label: "co ~3 godz." },
+  { days: [17,18,19,20],          tablets: 3, intervalMin: 300, label: "co ~5 godz." },
+  { days: [21,22,23,24,25],       tablets: 2, intervalMin: 240, label: "1–2 tabl. wg uznania" },
+];
+
+function getCfg(day) { return DAY_CONFIG.find(c => c.days.includes(day)); }
+
+function addMins(h, m, mins) {
+  const t = h * 60 + m + mins;
+  return { h: Math.floor(t / 60) % 24, m: t % 60 };
+}
+
+function fmt(h, m) {
+  return String(h).padStart(2,"0") + ":" + String(m).padStart(2,"0");
+}
+
+function getDateForDay(d) {
+  const date = new Date(START_DATE);
+  date.setDate(date.getDate() + d - 1);
+  return date;
+}
+
+function formatDate(d) {
+  return d.toLocaleDateString("pl-PL", { weekday: "long", day: "numeric", month: "long" });
+}
+
+// --- STORAGE ---
+function load() {
+  try { return JSON.parse(localStorage.getItem("desmoxan_v3") || "{}"); } catch { return {}; }
+}
+function save(data) {
+  try { localStorage.setItem("desmoxan_v3", JSON.stringify(data)); } catch {}
+}
+
+let state = load();
+let selectedDay = (() => {
+  const today = new Date(); today.setHours(0,0,0,0);
+  for (let d = 1; d <= 25; d++) {
+    const date = getDateForDay(d); date.setHours(0,0,0,0);
+    if (date.getTime() === today.getTime()) return d;
+  }
+  return 1;
+})();
+
+// --- SCHEDULE ---
+function buildSchedule(day) {
+  const cfg = getCfg(day);
+  const dayKey = "day_" + day;
+  const dayChecks = state[dayKey] || {};
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+
+  const baseTimes = [];
+  let h = 9, m = 30;
+  for (let i = 0; i < cfg.tablets; i++) {
+    baseTimes.push({ h, m });
+    if (i < cfg.tablets - 1) { const n = addMins(h, m, cfg.intervalMin); h = n.h; m = n.m; }
+  }
+
+  const slots = baseTimes.map((t, i) => {
+    const tMin = t.h * 60 + t.m;
+    const nextMin = i < baseTimes.length - 1
+      ? baseTimes[i+1].h * 60 + baseTimes[i+1].m
+      : tMin + cfg.intervalMin;
+    const done = !!dayChecks[i];
+    const missed = !done && nowMin >= nextMin;
+    return { h: t.h, m: t.m, done, missed, isMakeup: false, key: i };
+  });
+
+  const missedCount = slots.filter(s => s.missed).length;
+  let lastTime = baseTimes[baseTimes.length - 1];
+  for (let i = 0; i < missedCount; i++) {
+    const next = addMins(lastTime.h, lastTime.m, cfg.intervalMin);
+    slots.push({ h: next.h, m: next.m, done: false, missed: false, isMakeup: true, key: cfg.tablets + i });
+    lastTime = next;
+  }
+  return slots;
+}
+
+// --- TAB SWITCHING ---
+function switchTab(tab) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById("tab-" + tab).classList.add("active");
+  document.getElementById("view-" + tab).classList.add("active");
+  if (tab === "kuracja") renderKuracja();
+}
+
+// --- DAILY RENDER ---
+function renderDaily() {
+  const cfg = getCfg(selectedDay);
+  const dayKey = "day_" + selectedDay;
+  const dayChecks = state[dayKey] || {};
+  const slots = buildSchedule(selectedDay);
+  const doneCount = slots.filter(s => s.done).length;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const selDate = getDateForDay(selectedDay); selDate.setHours(0,0,0,0);
+  const isToday = selDate.getTime() === today.getTime();
+
+  // subtitle
+  document.getElementById("daily-subtitle").textContent = "Pierwsza dawka: 9:30 · " + cfg.label;
+
+  // day grid
+  const grid = document.getElementById("day-grid");
+  grid.innerHTML = "";
+  for (let d = 1; d <= 25; d++) {
+    const c = getCfg(d);
+    const dc = state["day_" + d] || {};
+    const doneD = Object.values(dc).filter(Boolean).length >= c.tablets;
+    const btn = document.createElement("button");
+    btn.className = "day-btn " + (doneD ? "done" : d === selectedDay ? "selected" : "normal");
+    btn.textContent = d;
+    if (doneD) {
+      const dot = document.createElement("span");
+      dot.className = "dot dot-green"; btn.appendChild(dot);
+    } else if (d === 5) {
+      const dot = document.createElement("span");
+      dot.className = "dot dot-red"; btn.appendChild(dot);
+    }
+    btn.onclick = () => { selectedDay = d; renderDaily(); };
+    grid.appendChild(btn);
+  }
+
+  // info bar
+  const infoBar = document.getElementById("daily-info-bar");
+  infoBar.className = "info-bar" + (selectedDay === 5 ? " warning" : "");
+  document.getElementById("daily-day-title").innerHTML =
+    "Dzień " + selectedDay +
+    (selectedDay === 5 ? ' <span style="margin-left:8px;font-size:13px;color:#ff7070">🚭 Ostatni dzień palenia</span>' : "");
+  document.getElementById("daily-day-date").textContent = formatDate(getDateForDay(selectedDay));
+  document.getElementById("daily-count").innerHTML = doneCount + "<span>/" + cfg.tablets + "</span>";
+
+  // alerts
+  document.getElementById("daily-stop-alert").style.display = (selectedDay > 5) ? "" : "none";
+  document.getElementById("daily-progress-bar").style.width = Math.min((doneCount / cfg.tablets) * 100, 100) + "%";
+
+  // dose list
+  const nextIdx = slots.findIndex(s => !s.done && !s.missed);
+  const list = document.getElementById("dose-list");
+  list.innerHTML = "";
+  slots.forEach((slot, idx) => {
+    const isNext = idx === nextIdx;
+    let rowClass = "dose-row ";
+    if (slot.done) rowClass += "done-row";
+    else if (slot.missed) rowClass += "missed-row";
+    else if (isNext) rowClass += "next-row";
+    else if (slot.isMakeup) rowClass += "makeup-row";
+    else rowClass += "future-row";
+
+    let cbClass = "checkbox";
+    let cbContent = "";
+    if (slot.done) { cbClass += " checked"; cbContent = "✓"; }
+    else if (slot.missed) { cbClass += " missed-cb"; cbContent = "✕"; }
+    else if (slot.isMakeup) { cbClass += " makeup-cb"; }
+
+    let timeColor = "color-future";
+    if (slot.done) timeColor = "color-done";
+    else if (slot.missed) timeColor = "color-missed";
+    else if (slot.isMakeup) timeColor = "color-makeup";
+    else if (isNext) timeColor = "color-next";
+
+    let subExtra = "";
+    if (isNext) subExtra = '<span class="badge badge-' + (slot.isMakeup ? "orange" : "teal") + '">← następna</span>';
+    else if (slot.missed) subExtra = '<span class="badge badge-red">pominięta → dodano uzupełniającą</span>';
+
+    const makeupLabel = slot.isMakeup
+      ? ' <span style="font-size:12px;margin-left:8px;color:#f5a62390;font-weight:500">uzupełniająca</span>' : "";
+    const subText = slot.isMakeup
+      ? "Uzupełniająca za pominiętą dawkę" + subExtra
+      : "Tabletka " + (slot.key + 1) + " z " + cfg.tablets + subExtra;
+
+    const iconContent = slot.done ? "✓" : slot.missed ? "✕" : "○";
+    const iconClass = "dose-icon" + (slot.done ? " done-icon" : slot.missed ? " missed-icon" : "");
+
+    const row = document.createElement("div");
+    row.className = rowClass;
+    row.innerHTML = `
+      <div class="${cbClass}">${cbContent}</div>
+      <div style="flex:1">
+        <div class="dose-time ${timeColor}">${fmt(slot.h, slot.m)}${makeupLabel}</div>
+        <div class="dose-sub">${subText}</div>
+      </div>
+      <div class="${iconClass}">${iconContent}</div>
+    `;
+    if (!slot.missed) {
+      row.onclick = () => {
+        const dk = "day_" + selectedDay;
+        if (!state[dk]) state[dk] = {};
+        state[dk][slot.key] = !state[dk][slot.key];
+        save(state);
+        renderDaily();
+        renderKuracjaIfActive();
+      };
+    }
+    list.appendChild(row);
+  });
+
+  // bottom alerts
+  document.getElementById("makeup-alert").style.display = slots.some(s => s.isMakeup) ? "" : "none";
+  document.getElementById("daily-21-alert").style.display = selectedDay >= 21 ? "" : "none";
+  document.getElementById("daily-done-alert").style.display = doneCount >= cfg.tablets ? "" : "none";
+  document.querySelector("#view-daily .btn-reset").textContent = "Resetuj dzień " + selectedDay;
+}
+
+function resetDay() {
+  const dayKey = "day_" + selectedDay;
+  state[dayKey] = {};
+  save(state);
+  renderDaily();
+  renderKuracjaIfActive();
+}
+
+// --- KURACJA RENDER ---
+function renderKuracja() {
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  // overall count = days where all doses done
+  let overallDone = 0;
+  for (let d = 1; d <= 25; d++) {
+    const c = getCfg(d);
+    const dc = state["day_" + d] || {};
+    if (Object.values(dc).filter(Boolean).length >= c.tablets) overallDone++;
+  }
+  document.getElementById("overall-count").innerHTML = overallDone + "<span>/25</span>";
+  document.getElementById("overall-bar").style.width = (overallDone / 25 * 100) + "%";
+  document.getElementById("overall-done-msg").style.display = overallDone === 25 ? "" : "none";
+
+  const list = document.getElementById("day-list");
+  list.innerHTML = "";
+
+  for (let day = 1; day <= 25; day++) {
+    const cfg = getCfg(day);
+    const dc = state["day_" + day] || {};
+    const doneCount = Object.values(dc).filter(Boolean).length;
+    const isDone = doneCount >= cfg.tablets;
+    const date = getDateForDay(day); date.setHours(0,0,0,0);
+    const isToday = date.getTime() === today.getTime();
+    const isFuture = date > today;
+
+    let itemClass = "day-item";
+    if (isDone) itemClass += " day-done";
+    else if (isToday) itemClass += " day-today";
+
+    let nameColor = "color-past";
+    if (isDone) nameColor = "color-done";
+    else if (isToday) nameColor = "color-today";
+    else if (isFuture) nameColor = "color-future";
+
+    const todayBadge = isToday ? '<span class="today-badge">DZIŚ</span>' : "";
+    const zeroBadge = day === 5 && !isDone ? '<span class="zero-badge">🚭 ZERO OD DZIŚ</span>' : "";
+
+    const cbClass = "day-cb" + (isDone ? " checked" : "");
+    const cbContent = isDone ? "✓" : "";
+
+    const item = document.createElement("div");
+    item.className = itemClass;
+    item.innerHTML = `
+      <div class="${cbClass}">${cbContent}</div>
+      <div style="flex:1">
+        <div>
+          <span class="day-name ${nameColor}">Dzień ${day}</span>
+          ${todayBadge}${zeroBadge}
+        </div>
+        <div class="day-meta">${formatDate(date)} · ${cfg.tablets} tabl. · ${cfg.label}</div>
+      </div>
+    `;
+    item.onclick = () => {
+      const dk = "day_" + day;
+      if (!state[dk]) state[dk] = {};
+      // Toggle all doses as done/undone
+      const nowDone = Object.values(state[dk]).filter(Boolean).length >= cfg.tablets;
+      if (nowDone) {
+        state[dk] = {};
+      } else {
+        for (let i = 0; i < cfg.tablets; i++) state[dk][i] = true;
+      }
+      save(state);
+      renderKuracja();
+    };
+    list.appendChild(item);
+  }
+}
+
+function renderKuracjaIfActive() {
+  if (document.getElementById("view-kuracja").classList.contains("active")) renderKuracja();
+}
+
+// --- INIT ---
+renderDaily();
+
+// Auto-refresh every minute
+setInterval(() => { renderDaily(); renderKuracjaIfActive(); }, 60000);
+</script>
+</body>
+</html>
