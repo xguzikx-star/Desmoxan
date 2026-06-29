@@ -11,55 +11,32 @@
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body {
     font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
-    background: #0f1623;
-    color: #e8eaf0;
-    min-height: 100vh;
+    background: #0f1623; color: #e8eaf0; min-height: 100vh;
     padding: env(safe-area-inset-top, 20px) 0 env(safe-area-inset-bottom, 20px);
   }
-
   .tabs {
-    display: flex;
-    background: #161e2c;
-    border-bottom: 1px solid #1e2636;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    overflow-x: auto;
-    scrollbar-width: none;
+    display: flex; background: #161e2c; border-bottom: 1px solid #1e2636;
+    position: sticky; top: 0; z-index: 10; overflow-x: auto; scrollbar-width: none;
   }
   .tabs::-webkit-scrollbar { display: none; }
   .tab {
-    flex: 1;
-    min-width: 72px;
-    padding: 12px 6px;
-    text-align: center;
-    font-size: 11px;
-    font-weight: 600;
-    color: #5a6580;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    letter-spacing: 0.2px;
-    white-space: nowrap;
+    flex: 1; min-width: 72px; padding: 12px 6px; text-align: center;
+    font-size: 11px; font-weight: 600; color: #5a6580; cursor: pointer;
+    border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap;
   }
   .tab.active { color: #4ECDC4; border-bottom-color: #4ECDC4; }
-
   .view { display: none; padding: 20px 16px; max-width: 500px; margin: 0 auto; }
   .view.active { display: block; }
-
   .eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #4ECDC4; font-weight: 600; }
   h1 { font-size: 24px; font-weight: 700; margin: 4px 0 2px; color: #fff; }
   .subtitle { font-size: 13px; color: #6a7590; margin-bottom: 20px; }
-
   .card { background: #1e2636; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
   .card-label { font-size: 12px; color: #6a7590; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
-
   .progress-bar-wrap { background: #162030; border-radius: 6px; height: 6px; margin-bottom: 18px; overflow: hidden; }
   .progress-bar { height: 100%; background: linear-gradient(90deg, #4ECDC4, #45b7aa); border-radius: 6px; transition: width 0.4s ease; }
-
   .info-bar {
-    background: #1e2636; border: 1px solid #1e2636;
-    border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+    background: #1e2636; border: 1px solid #1e2636; border-radius: 10px;
+    padding: 12px 16px; margin-bottom: 14px;
     display: flex; justify-content: space-between; align-items: center; gap: 8px;
   }
   .info-bar.warning { background: #ff4d4d18; border-color: #ff4d4d50; }
@@ -68,22 +45,17 @@
   .info-bar-count { font-size: 22px; font-weight: 700; color: #4ECDC4; text-align: right; }
   .info-bar-count span { font-size: 14px; color: #6a7590; font-weight: 400; }
   .info-bar-unit { font-size: 11px; color: #6a7590; }
-
   .alert { border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; font-size: 13px; line-height: 1.5; }
   .alert-red { background: #ff4d4d14; border: 1px solid #ff4d4d30; color: #ff9090; }
   .alert-orange { background: #f5a62314; border: 1px solid #f5a62330; color: #f5c060; }
   .alert-muted { background: #1e2636; border: 1px solid #1e2636; color: #8892a4; }
   .alert-green { background: #1a2e2b; border: 1px solid #4ECDC460; color: #4ECDC4; text-align: center; font-weight: 600; font-size: 15px; }
-  .alert-blue { background: #1a2040; border: 1px solid #4466cc40; color: #88aaff; }
-
   .btn-reset {
     background: transparent; border: 1px solid #2a3448; color: #6a7590;
     border-radius: 8px; padding: 8px 16px; font-size: 12px; cursor: pointer;
     display: block; margin: 0 auto 20px; font-family: inherit;
   }
   .footer-note { text-align: center; font-size: 11px; color: #2a3448; padding-bottom: 20px; }
-
-  /* DAY GRID */
   .day-grid { display: flex; flex-wrap: wrap; gap: 6px; }
   .day-btn {
     width: 36px; height: 36px; border-radius: 8px; border: 2px solid transparent;
@@ -95,8 +67,6 @@
   .dot { position: absolute; top: -4px; right: -4px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid #0f1623; }
   .dot-green { background: #4ECDC4; }
   .dot-red { background: #ff4d4d; }
-
-  /* DOSE ROWS */
   .dose-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
   .dose-row {
     display: flex; align-items: center; gap: 12px;
@@ -108,7 +78,6 @@
   .dose-row.next-row { background: #1c2840; border-color: #4ECDC460; }
   .dose-row.makeup-row { background: #161e2c; border-color: #f5a62340; }
   .dose-row.future-row { background: #161e2c; border-color: #1e2636; }
-
   .checkbox {
     width: 28px; height: 28px; border-radius: 8px; border: 2px solid #3a4460; background: transparent;
     display: flex; align-items: center; justify-content: center;
@@ -117,25 +86,17 @@
   .checkbox.checked { background: #4ECDC4; border-color: #4ECDC4; color: #0f1623; }
   .checkbox.missed-cb { border-color: #ff4d4d60; color: #ff4d4d90; }
   .checkbox.makeup-cb { border-color: #f5a623aa; }
-
   .dose-time { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
   .dose-time.color-done { color: #4ECDC4; }
   .dose-time.color-missed { color: #6a5060; }
   .dose-time.color-makeup { color: #f5a623; }
   .dose-time.color-next { color: #fff; }
   .dose-time.color-future { color: #c0c8d8; }
-
   .dose-sub { font-size: 11px; color: #6a7590; margin-top: 2px; }
   .badge { font-weight: 600; margin-left: 6px; }
   .badge-teal { color: #4ECDC4; }
   .badge-red { color: #ff7070; }
   .badge-orange { color: #f5a623; }
-
-  .dose-icon { font-size: 16px; color: #3a4460; }
-  .dose-icon.done-icon { color: #4ECDC460; }
-  .dose-icon.missed-icon { color: #ff4d4d40; }
-
-  /* ALARM BUTTON */
   .alarm-btn {
     background: #1e2a40; border: 1px solid #2a3a58; color: #6a88c0;
     border-radius: 8px; padding: 5px 9px; font-size: 11px; cursor: pointer;
@@ -143,8 +104,16 @@
   }
   .alarm-btn:active { background: #253450; }
   .alarm-btn.alarm-set { background: #1a2e2b; border-color: #4ECDC460; color: #4ECDC4; }
-
-  /* 25-DAY LIST */
+  .notify-banner {
+    background: #1a2040; border: 1px solid #2a3a60; border-radius: 10px;
+    padding: 12px 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .notify-banner-text { font-size: 13px; color: #88aaff; flex: 1; line-height: 1.4; }
+  .notify-btn {
+    background: #2a4080; border: none; color: #aaccff;
+    border-radius: 8px; padding: 7px 12px; font-size: 12px; font-weight: 600;
+    cursor: pointer; font-family: inherit; white-space: nowrap; flex-shrink: 0;
+  }
   .day-list { display: flex; flex-direction: column; gap: 8px; }
   .day-item {
     display: flex; align-items: center; gap: 12px;
@@ -166,8 +135,6 @@
   .today-badge { background: #4ECDC4; color: #0f1623; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; margin-left: 6px; }
   .zero-badge { background: #ff4d4d30; color: #ff7070; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 20px; margin-left: 6px; }
   .day-meta { font-size: 12px; color: #6a7590; margin-top: 2px; }
-
-  /* LEGEND */
   .legend { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
   .legend-row { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; background: #1e2636; font-size: 13px; }
   .legend-pill { border-radius: 6px; padding: 2px 8px; font-weight: 600; min-width: 70px; text-align: center; font-size: 12px; }
@@ -175,21 +142,14 @@
   .legend-pill.red { background: #ff4d4d22; color: #ff7070; }
   .legend-text { color: #c0c8d8; }
   .legend-note { margin-left: auto; font-size: 12px; color: #ff7070; }
-
-  /* STATS */
   .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-  .stat-card {
-    background: #1e2636; border-radius: 12px; padding: 14px 16px;
-    display: flex; flex-direction: column; gap: 4px;
-  }
+  .stat-card { background: #1e2636; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
   .stat-value { font-size: 28px; font-weight: 700; color: #4ECDC4; line-height: 1; }
   .stat-value.red { color: #ff7070; }
   .stat-value.orange { color: #f5a623; }
   .stat-value.white { color: #fff; }
   .stat-label { font-size: 11px; color: #6a7590; text-transform: uppercase; letter-spacing: 0.5px; }
   .stat-sub { font-size: 11px; color: #4a5570; margin-top: 2px; }
-
-  /* CHART */
   .chart-wrap { background: #1e2636; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
   .chart-title { font-size: 13px; font-weight: 600; color: #8892a4; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
   .bar-chart { display: flex; align-items: flex-end; gap: 4px; height: 80px; }
@@ -200,8 +160,6 @@
   .bar.zero { background: #2a3448; }
   .bar.future { background: #1e2636; border: 1px dashed #2a3448; }
   .bar-label { font-size: 9px; color: #4a5570; }
-
-  /* MILESTONES */
   .milestone-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
   .milestone {
     display: flex; align-items: center; gap: 14px;
@@ -218,35 +176,15 @@
   .ms-sub { font-size: 12px; color: #3a4460; margin-top: 2px; }
   .ms-sub.unlocked { color: #4ECDC4; }
   .ms-sub.next-ms { color: #6a7590; }
-  .ms-badge {
-    margin-left: auto; font-size: 11px; font-weight: 700;
-    padding: 3px 10px; border-radius: 20px; flex-shrink: 0;
-  }
+  .ms-badge { margin-left: auto; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; flex-shrink: 0; }
   .ms-badge.done-badge { background: #4ECDC420; color: #4ECDC4; }
   .ms-badge.next-badge { background: #1c2840; color: #6a88c0; border: 1px solid #2a3a58; }
   .ms-badge.locked-badge { background: #1e2636; color: #3a4460; }
-
-  /* NOTIFY BANNER */
-  .notify-banner {
-    background: #1a2040; border: 1px solid #2a3a60; border-radius: 10px;
-    padding: 12px 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
-  }
-  .notify-banner-text { font-size: 13px; color: #88aaff; flex: 1; line-height: 1.4; }
-  .notify-btn {
-    background: #2a4080; border: none; color: #aaccff;
-    border-radius: 8px; padding: 7px 12px; font-size: 12px; font-weight: 600;
-    cursor: pointer; font-family: inherit; white-space: nowrap; flex-shrink: 0;
-  }
-  .notify-btn:active { background: #3a50a0; }
-
-  /* OVERALL PROGRESS */
   .big-progress { background: #1e2636; border-radius: 12px; padding: 16px 20px; margin-bottom: 18px; }
   .big-progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
   .big-progress-label { font-size: 13px; color: #6a7590; }
   .big-progress-count { font-size: 20px; font-weight: 700; color: #4ECDC4; }
   .big-progress-count span { font-size: 13px; color: #6a7590; font-weight: 400; }
-
-  /* SMOKE FREE TIMER */
   .smoke-free-card {
     background: linear-gradient(135deg, #1a2e2b, #1e2636);
     border: 1px solid #4ECDC440; border-radius: 14px;
@@ -266,7 +204,7 @@
   <div class="tab" onclick="switchTab('kuracja')" id="tab-kuracja">📅 25 dni</div>
 </div>
 
-<!-- ===================== DAILY VIEW ===================== -->
+<!-- DAILY -->
 <div class="view active" id="view-daily">
   <div class="eyebrow">Desmoxan · dzienna dawka</div>
   <h1>Harmonogram dawek</h1>
@@ -293,56 +231,37 @@
     </div>
   </div>
 
-  <div class="alert alert-red" id="daily-stop-alert" style="display:none">
-    🚭 Jesteś po dniu 5. — zero papierosów.
-  </div>
-
-  <div class="progress-bar-wrap">
-    <div class="progress-bar" id="daily-progress-bar" style="width:0%"></div>
-  </div>
-
+  <div class="alert alert-red" id="daily-stop-alert" style="display:none">🚭 Jesteś po dniu 5. — zero papierosów.</div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="daily-progress-bar" style="width:0%"></div></div>
   <div class="dose-list" id="dose-list"></div>
-
-  <div class="alert alert-orange" id="makeup-alert" style="display:none">
-    ⏰ Masz pominięte dawki — dodałam uzupełniające na końcu dnia, żeby zachować pełną liczbę tabletek.
-  </div>
-  <div class="alert alert-muted" id="daily-21-alert" style="display:none">
-    💡 W dniach 21–25 możesz przyjąć 1 lub 2 tabletki — wg własnego odczucia głodu nikotynowego.
-  </div>
-  <div class="alert alert-green" id="daily-done-alert" style="display:none">
-    ✅ Wszystkie dawki na dziś przyjęte!
-  </div>
+  <div class="alert alert-orange" id="makeup-alert" style="display:none">⏰ Masz pominięte dawki — dodałam uzupełniające na końcu dnia, żeby zachować pełną liczbę tabletek.</div>
+  <div class="alert alert-muted" id="daily-21-alert" style="display:none">💡 W dniach 21–25 możesz przyjąć 1 lub 2 tabletki — wg własnego odczucia głodu nikotynowego.</div>
+  <div class="alert alert-green" id="daily-done-alert" style="display:none">✅ Wszystkie dawki na dziś przyjęte!</div>
 
   <button class="btn-reset" onclick="resetDay()">Resetuj ten dzień</button>
   <div class="footer-note">Jeden dzień na raz. Dasz radę. 💪</div>
 </div>
 
-<!-- ===================== STATS VIEW ===================== -->
+<!-- STATS -->
 <div class="view" id="view-stats">
   <div class="eyebrow">Desmoxan · analityka</div>
   <h1>Statystyki</h1>
   <p class="subtitle">Twój postęp w liczbach</p>
-
   <div class="stats-grid" id="stats-grid"></div>
-
   <div class="chart-wrap">
     <div class="chart-title">Dawki przyjęte — ostatnie 14 dni</div>
     <div class="bar-chart" id="bar-chart"></div>
   </div>
-
   <div class="chart-wrap">
     <div class="chart-title">Skuteczność dawkowania (%)</div>
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
       <div style="flex:1">
-        <div class="progress-bar-wrap" style="margin-bottom:6px">
-          <div class="progress-bar" id="adherence-bar" style="width:0%"></div>
-        </div>
+        <div class="progress-bar-wrap" style="margin-bottom:6px"><div class="progress-bar" id="adherence-bar" style="width:0%"></div></div>
         <div style="font-size:12px;color:#6a7590">Dni z pełną dawką / dni kuracji do dziś</div>
       </div>
       <div style="font-size:24px;font-weight:700;color:#4ECDC4;min-width:52px;text-align:right" id="adherence-pct">–</div>
     </div>
   </div>
-
   <div class="chart-wrap">
     <div class="chart-title">Plan kuracji</div>
     <div class="legend" style="margin-bottom:0">
@@ -353,54 +272,38 @@
       <div class="legend-row"><span class="legend-pill red">Dni 21–25</span><span class="legend-text"><strong>1–2 tabl.</strong> · wg uznania</span></div>
     </div>
   </div>
-
   <div class="footer-note">Jeden dzień na raz. Dasz radę. 💪</div>
 </div>
 
-<!-- ===================== MILESTONES VIEW ===================== -->
+<!-- MILESTONES -->
 <div class="view" id="view-milestones">
   <div class="eyebrow">Desmoxan · osiągnięcia</div>
   <h1>Milestony</h1>
   <p class="subtitle">Twoja droga bez papierosa</p>
-
   <div class="smoke-free-card" id="smoke-free-card">
     <div class="smoke-free-label">Bez papierosa od</div>
     <div class="smoke-free-time" id="smoke-free-time">–</div>
     <div class="smoke-free-sub" id="smoke-free-sub"></div>
   </div>
-
   <div id="milestone-list" class="milestone-list"></div>
-
-  <div class="alert alert-muted" style="font-size:12px">
-    💡 Licznik startuje od dnia 5. kuracji — kluczowej daty rzucenia palenia.
-  </div>
-
+  <div class="alert alert-muted" style="font-size:12px">💡 Licznik startuje od dnia 5. kuracji — kluczowej daty rzucenia palenia.</div>
   <div class="footer-note" style="margin-top:16px">Jeden dzień na raz. Dasz radę. 💪</div>
 </div>
 
-<!-- ===================== KURACJA VIEW ===================== -->
+<!-- KURACJA -->
 <div class="view" id="view-kuracja">
   <div class="eyebrow">Desmoxan · 25 dni</div>
   <h1>Twój plan rzucenia palenia</h1>
   <p class="subtitle">Start: 28 czerwca 2026 · Koniec: 22 lipca 2026</p>
-
   <div class="big-progress">
     <div class="big-progress-header">
       <span class="big-progress-label">Ukończone dni</span>
       <span class="big-progress-count" id="overall-count">0<span>/25</span></span>
     </div>
-    <div class="progress-bar-wrap" style="margin-bottom:0">
-      <div class="progress-bar" id="overall-bar" style="width:0%"></div>
-    </div>
-    <div id="overall-done-msg" style="display:none;margin-top:12px;font-size:14px;color:#4ECDC4;font-weight:600;text-align:center">
-      🎉 Gratulacje! 25 dni bez papierosa!
-    </div>
+    <div class="progress-bar-wrap" style="margin-bottom:0"><div class="progress-bar" id="overall-bar" style="width:0%"></div></div>
+    <div id="overall-done-msg" style="display:none;margin-top:12px;font-size:14px;color:#4ECDC4;font-weight:600;text-align:center">🎉 Gratulacje! 25 dni bez papierosa!</div>
   </div>
-
-  <div class="alert alert-red" style="margin-bottom:16px">
-    <strong style="color:#ff7070">⚠️ Kluczowa zasada:</strong> Nie później niż w dniu 5. musisz całkowicie rzucić palenie.
-  </div>
-
+  <div class="alert alert-red" style="margin-bottom:16px"><strong style="color:#ff7070">⚠️ Kluczowa zasada:</strong> Nie później niż w dniu 5. musisz całkowicie rzucić palenie.</div>
   <div style="font-size:15px;font-weight:600;color:#8892a4;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Odznaczaj kolejne dni</div>
   <div class="day-list" id="day-list"></div>
   <div class="footer-note" style="margin-top:20px">Jeden dzień na raz. Dasz radę. 💪</div>
@@ -408,7 +311,6 @@
 
 <script>
 const START_DATE = new Date("2026-06-28");
-// Day 5 = smoke-free start (2026-07-02)
 const SMOKE_FREE_DATE = new Date("2026-07-02T00:00:00");
 
 const DAY_CONFIG = [
@@ -420,49 +322,51 @@ const DAY_CONFIG = [
 ];
 
 const MILESTONES = [
-  { id: "h1",   hours: 1,      icon: "🌱", title: "Pierwsza godzina",        sub: "Nikotyna zaczyna opuszczać ciało" },
-  { id: "h8",   hours: 8,      icon: "💨", title: "8 godzin",                sub: "Poziom tlenku węgla w połowie normalny" },
-  { id: "h24",  hours: 24,     icon: "❤️", title: "24 godziny",              sub: "Ryzyko zawału już spada" },
-  { id: "h48",  hours: 48,     icon: "👃", title: "48 godzin",               sub: "Nerwy smaku i węchu się regenerują" },
-  { id: "d3",   hours: 72,     icon: "💪", title: "3 dni",                   sub: "Nikotyna całkowicie wypłukana" },
-  { id: "d7",   hours: 168,    icon: "🌟", title: "7 dni — tydzień!",         sub: "Głód nikotynowy słabnie każdego dnia" },
-  { id: "d14",  hours: 336,    icon: "🫁", title: "2 tygodnie",              sub: "Płuca zaczynają się oczyszczać" },
-  { id: "d21",  hours: 504,    icon: "🧠", title: "21 dni",                  sub: "Mózg tworzy nowe ścieżki bez nikotyny" },
-  { id: "d30",  hours: 720,    icon: "🎯", title: "Miesiąc!",                sub: "Krążenie znacznie poprawione" },
-  { id: "d90",  hours: 2160,   icon: "🏃", title: "3 miesiące",              sub: "Pojemność płuc wzrasta o 30%" },
-  { id: "d365", hours: 8760,   icon: "🏆", title: "Rok bez papierosa!",      sub: "Ryzyko choroby serca zredukowane o połowę" },
+  { hours: 1,    icon: "🌱", title: "Pierwsza godzina",   sub: "Nikotyna zaczyna opuszczać ciało" },
+  { hours: 8,    icon: "💨", title: "8 godzin",           sub: "Poziom tlenku węgla w połowie normalny" },
+  { hours: 24,   icon: "❤️", title: "24 godziny",         sub: "Ryzyko zawału już spada" },
+  { hours: 48,   icon: "👃", title: "48 godzin",          sub: "Nerwy smaku i węchu się regenerują" },
+  { hours: 72,   icon: "💪", title: "3 dni",              sub: "Nikotyna całkowicie wypłukana" },
+  { hours: 168,  icon: "🌟", title: "7 dni — tydzień!",   sub: "Głód nikotynowy słabnie każdego dnia" },
+  { hours: 336,  icon: "🫁", title: "2 tygodnie",         sub: "Płuca zaczynają się oczyszczać" },
+  { hours: 504,  icon: "🧠", title: "21 dni",             sub: "Mózg tworzy nowe ścieżki bez nikotyny" },
+  { hours: 720,  icon: "🎯", title: "Miesiąc!",           sub: "Krążenie znacznie poprawione" },
+  { hours: 2160, icon: "🏃", title: "3 miesiące",         sub: "Pojemność płuc wzrasta o 30%" },
+  { hours: 8760, icon: "🏆", title: "Rok bez papierosa!", sub: "Ryzyko choroby serca zredukowane o połowę" },
 ];
 
 function getCfg(day) { return DAY_CONFIG.find(c => c.days.includes(day)); }
-function addMins(h, m, mins) { const t = h*60+m+mins; return {h: Math.floor(t/60)%24, m: t%60}; }
+function addMins(h, m, mins) { const t=h*60+m+mins; return {h:Math.floor(t/60)%24, m:t%60}; }
 function fmt(h, m) { return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0"); }
-function getDateForDay(d) { const date = new Date(START_DATE); date.setDate(date.getDate()+d-1); return date; }
+function getDateForDay(d) { const date=new Date(START_DATE); date.setDate(date.getDate()+d-1); return date; }
 function formatDate(d) { return d.toLocaleDateString("pl-PL",{weekday:"long",day:"numeric",month:"long"}); }
 function formatDateShort(d) { return d.toLocaleDateString("pl-PL",{day:"numeric",month:"short"}); }
 
+// STORAGE — doses
 function load() { try { return JSON.parse(localStorage.getItem("desmoxan_v3")||"{}"); } catch { return {}; } }
 function save(data) { try { localStorage.setItem("desmoxan_v3", JSON.stringify(data)); } catch {} }
 
+// STORAGE — alarms (persistent)
+function loadAlarms() { try { return JSON.parse(localStorage.getItem("desmoxan_alarms")||"{}"); } catch { return {}; } }
+function saveAlarms(a) { try { localStorage.setItem("desmoxan_alarms", JSON.stringify(a)); } catch {} }
+
 let state = load();
+let alarmState = loadAlarms();
+
 let selectedDay = (() => {
-  const today = new Date(); today.setHours(0,0,0,0);
+  const today=new Date(); today.setHours(0,0,0,0);
   for (let d=1; d<=25; d++) {
-    const date = getDateForDay(d); date.setHours(0,0,0,0);
+    const date=getDateForDay(d); date.setHours(0,0,0,0);
     if (date.getTime()===today.getTime()) return d;
   }
   return 1;
 })();
 
-// Track set alarms in memory (not persistent — just this session)
-const setAlarms = {};
-
 // --- NOTIFICATIONS ---
 function checkNotifyBanner() {
-  const banner = document.getElementById("notify-banner");
+  const banner=document.getElementById("notify-banner");
   if (!("Notification" in window)) { banner.style.display="none"; return; }
-  if (Notification.permission === "granted") { banner.style.display="none"; }
-  else if (Notification.permission === "denied") { banner.style.display="none"; }
-  else { banner.style.display="flex"; }
+  banner.style.display = (Notification.permission==="default") ? "flex" : "none";
 }
 
 function requestNotifications() {
@@ -470,62 +374,74 @@ function requestNotifications() {
     alert("Twoja przeglądarka nie obsługuje powiadomień. Na iOS dodaj stronę do ekranu głównego i otwórz stamtąd.");
     return;
   }
-  Notification.permission === "default"
-    ? Notification.requestPermission().then(() => { checkNotifyBanner(); renderDaily(); })
-    : alert("Zarządzaj uprawnieniami w ustawieniach przeglądarki.");
+  Notification.requestPermission().then(()=>{ checkNotifyBanner(); renderDaily(); });
 }
 
 function scheduleAlarm(h, m, label) {
   if (!("Notification" in window) || Notification.permission !== "granted") {
-    // Fallback: just tell the user
-    alert("⏰ Ustaw alarm o " + fmt(h,m) + " na dawkę " + label + ".\n\nAby dostawać automatyczne powiadomienia, włącz je w ustawieniach.");
+    alert("⏰ Ustaw alarm o "+fmt(h,m)+" na dawkę "+label+".\n\nAby dostawać automatyczne powiadomienia, włącz je w ustawieniach.");
     return false;
   }
-  const now = new Date();
-  const target = new Date();
+  const now=new Date();
+  const target=new Date();
   target.setHours(h, m, 0, 0);
-  if (target <= now) target.setDate(target.getDate()+1);
-  const delay = target - now;
-  setTimeout(() => {
-    new Notification("💊 Czas na tabletkę Desmoxan", {
-      body: label + " · " + fmt(h,m),
-      icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💊</text></svg>",
-      tag: "desmoxan-dose"
-    });
+  if (target<=now) target.setDate(target.getDate()+1);
+  const delay=target-now;
+  setTimeout(()=>{
+    try {
+      new Notification("💊 Czas na tabletkę Desmoxan", {
+        body: label+" · "+fmt(h,m),
+        tag: "desmoxan-"+h+"-"+m
+      });
+    } catch(e) {}
   }, delay);
   return true;
 }
 
-// --- SCHEDULE ---
+// --- SCHEDULE (FIXED) ---
 function buildSchedule(day) {
   const cfg = getCfg(day);
   const dayChecks = state["day_"+day] || {};
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
 
+  // Build base times
   const baseTimes = [];
   let h=9, m=30;
   for (let i=0; i<cfg.tablets; i++) {
-    baseTimes.push({h,m});
-    if (i<cfg.tablets-1) { const n=addMins(h,m,cfg.intervalMin); h=n.h; m=n.m; }
+    baseTimes.push({h, m});
+    if (i < cfg.tablets-1) { const n=addMins(h,m,cfg.intervalMin); h=n.h; m=n.m; }
   }
 
-  const slots = baseTimes.map((t,i) => {
+  const slots = baseTimes.map((t, i) => {
     const tMin = t.h*60+t.m;
-    const nextMin = i<baseTimes.length-1 ? baseTimes[i+1].h*60+baseTimes[i+1].m : tMin+cfg.intervalMin;
+    const nextMin = i<baseTimes.length-1
+      ? baseTimes[i+1].h*60+baseTimes[i+1].m
+      : tMin+cfg.intervalMin;
     const done = !!dayChecks[i];
     const missed = !done && nowMin >= nextMin;
     return {h:t.h, m:t.m, done, missed, isMakeup:false, key:i};
   });
 
+  // FIX: track lastTime correctly by updating it after each makeup slot
   const missedCount = slots.filter(s=>s.missed).length;
-  let lastTime = baseTimes[baseTimes.length-1];
+  // Start makeup times from after the last BASE slot
+  let lastH = baseTimes[baseTimes.length-1].h;
+  let lastM = baseTimes[baseTimes.length-1].m;
+
   for (let i=0; i<missedCount; i++) {
-    const next = addMins(lastTime.h, lastTime.m, cfg.intervalMin);
-    const makeupKey = cfg.tablets+i;
-    slots.push({h:next.h, m:next.m, done:!!dayChecks[makeupKey], missed:false, isMakeup:true, key:makeupKey});
-    lastTime = next;
+    const next = addMins(lastH, lastM, cfg.intervalMin);
+    const makeupKey = cfg.tablets + i;
+    slots.push({
+      h: next.h, m: next.m,
+      done: !!dayChecks[makeupKey],
+      missed: false, isMakeup: true, key: makeupKey
+    });
+    // FIX: update lastH/lastM to this makeup slot's time for the next iteration
+    lastH = next.h;
+    lastM = next.m;
   }
+
   return slots;
 }
 
@@ -550,38 +466,36 @@ function renderDaily() {
   document.getElementById("daily-subtitle").textContent = "Pierwsza dawka: 9:30 · "+cfg.label;
 
   // day grid
-  const grid = document.getElementById("day-grid");
-  grid.innerHTML = "";
+  const grid=document.getElementById("day-grid");
+  grid.innerHTML="";
   for (let d=1; d<=25; d++) {
-    const c = getCfg(d);
-    const dc = state["day_"+d]||{};
-    const doneD = Object.values(dc).filter(Boolean).length >= c.tablets;
-    const btn = document.createElement("button");
-    btn.className = "day-btn "+(doneD?"done":d===selectedDay?"selected":"normal");
-    btn.textContent = d;
+    const c=getCfg(d), dc=state["day_"+d]||{};
+    const doneD=Object.values(dc).filter(Boolean).length>=c.tablets;
+    const btn=document.createElement("button");
+    btn.className="day-btn "+(doneD?"done":d===selectedDay?"selected":"normal");
+    btn.textContent=d;
     if (doneD) { const dot=document.createElement("span"); dot.className="dot dot-green"; btn.appendChild(dot); }
     else if (d===5) { const dot=document.createElement("span"); dot.className="dot dot-red"; btn.appendChild(dot); }
-    btn.onclick = ()=>{ selectedDay=d; renderDaily(); };
+    btn.onclick=()=>{ selectedDay=d; renderDaily(); };
     grid.appendChild(btn);
   }
 
   // info bar
-  const infoBar = document.getElementById("daily-info-bar");
-  infoBar.className = "info-bar"+(selectedDay===5?" warning":"");
-  document.getElementById("daily-day-title").innerHTML =
-    "Dzień "+selectedDay+(selectedDay===5?' <span style="margin-left:8px;font-size:13px;color:#ff7070">🚭 Ostatni dzień palenia</span>':"");
-  document.getElementById("daily-day-date").textContent = formatDate(getDateForDay(selectedDay));
-  document.getElementById("daily-count").innerHTML = doneCount+"<span>/"+cfg.tablets+"</span>";
-  document.getElementById("daily-stop-alert").style.display = selectedDay>5?"":"none";
-  document.getElementById("daily-progress-bar").style.width = Math.min((doneCount/cfg.tablets)*100,100)+"%";
+  document.getElementById("daily-info-bar").className="info-bar"+(selectedDay===5?" warning":"");
+  document.getElementById("daily-day-title").innerHTML="Dzień "+selectedDay+(selectedDay===5?' <span style="margin-left:8px;font-size:13px;color:#ff7070">🚭 Ostatni dzień palenia</span>':"");
+  document.getElementById("daily-day-date").textContent=formatDate(getDateForDay(selectedDay));
+  document.getElementById("daily-count").innerHTML=doneCount+"<span>/"+cfg.tablets+"</span>";
+  document.getElementById("daily-stop-alert").style.display=selectedDay>5?"":"none";
+  document.getElementById("daily-progress-bar").style.width=Math.min((doneCount/cfg.tablets)*100,100)+"%";
 
   // doses
-  const nextIdx = slots.findIndex(s=>!s.done&&!s.missed);
-  const list = document.getElementById("dose-list");
-  list.innerHTML = "";
+  const nextIdx=slots.findIndex(s=>!s.done&&!s.missed);
+  const list=document.getElementById("dose-list");
+  list.innerHTML="";
+
   slots.forEach((slot,idx)=>{
-    const isNext = idx===nextIdx;
-    let rowClass = "dose-row ";
+    const isNext=idx===nextIdx;
+    let rowClass="dose-row ";
     if (slot.done) rowClass+="done-row";
     else if (slot.missed) rowClass+="missed-row";
     else if (isNext) rowClass+="next-row";
@@ -603,21 +517,24 @@ function renderDaily() {
     if(isNext) subExtra='<span class="badge badge-'+(slot.isMakeup?"orange":"teal")+'">← następna</span>';
     else if(slot.missed) subExtra='<span class="badge badge-red">pominięta → dodano uzupełniającą</span>';
 
-    const makeupLabel = slot.isMakeup?' <span style="font-size:11px;margin-left:6px;color:#f5a62390">uzupełniająca</span>':"";
-    const subText = slot.isMakeup
+    const makeupLabel=slot.isMakeup?' <span style="font-size:11px;margin-left:6px;color:#f5a62390">uzupełniająca</span>':"";
+    const subText=slot.isMakeup
       ? "Uzupełniająca za pominiętą dawkę"+subExtra
       : "Tabletka "+(slot.key+1)+" z "+cfg.tablets+subExtra;
 
-    const alarmKey = selectedDay+"_"+slot.key;
-    const alarmSet = setAlarms[alarmKey];
-    const showAlarm = !slot.done && !slot.missed;
-    const alarmBtnHtml = showAlarm
+    // ALARM — persistent key includes the date so it resets each day automatically
+    const today=new Date(); today.setHours(0,0,0,0);
+    const dateStr=today.toISOString().slice(0,10);
+    const alarmKey=dateStr+"_"+selectedDay+"_"+slot.key;
+    const alarmSet=!!alarmState[alarmKey];
+    const showAlarm=!slot.done&&!slot.missed;
+    const alarmBtnHtml=showAlarm
       ? `<button class="alarm-btn${alarmSet?" alarm-set":""}" onclick="handleAlarm(event,${slot.h},${slot.m},'Tabletka ${slot.key+1}','${alarmKey}')">${alarmSet?"🔔 Ustawiony":"🔔 Alarm"}</button>`
       : "";
 
-    const row = document.createElement("div");
-    row.className = rowClass;
-    row.innerHTML = `
+    const row=document.createElement("div");
+    row.className=rowClass;
+    row.innerHTML=`
       <div class="${cbClass}">${cbContent}</div>
       <div style="flex:1;min-width:0">
         <div class="dose-time ${timeColor}">${fmt(slot.h,slot.m)}${makeupLabel}</div>
@@ -626,7 +543,7 @@ function renderDaily() {
       ${alarmBtnHtml}
     `;
     if (!slot.missed) {
-      row.onclick = (e) => {
+      row.onclick=(e)=>{
         if (e.target.closest(".alarm-btn")) return;
         const dk="day_"+selectedDay;
         if(!state[dk]) state[dk]={};
@@ -639,17 +556,21 @@ function renderDaily() {
     list.appendChild(row);
   });
 
-  document.getElementById("makeup-alert").style.display = slots.some(s=>s.isMakeup)?"":"none";
-  document.getElementById("daily-21-alert").style.display = selectedDay>=21?"":"none";
-  document.getElementById("daily-done-alert").style.display = doneCount>=cfg.tablets?"":"none";
-  document.querySelector("#view-daily .btn-reset").textContent = "Resetuj dzień "+selectedDay;
+  document.getElementById("makeup-alert").style.display=slots.some(s=>s.isMakeup)?"":"none";
+  document.getElementById("daily-21-alert").style.display=selectedDay>=21?"":"none";
+  document.getElementById("daily-done-alert").style.display=doneCount>=cfg.tablets?"":"none";
+  document.querySelector("#view-daily .btn-reset").textContent="Resetuj dzień "+selectedDay;
 }
 
 function handleAlarm(e, h, m, label, key) {
   e.stopPropagation();
-  if (setAlarms[key]) return; // already set
-  const ok = scheduleAlarm(h, m, label);
-  if (ok) { setAlarms[key]=true; renderDaily(); }
+  if (alarmState[key]) return;
+  const ok=scheduleAlarm(h, m, label);
+  if (ok) {
+    alarmState[key]=true;
+    saveAlarms(alarmState);
+    renderDaily();
+  }
 }
 
 function resetDay() {
@@ -661,125 +582,82 @@ function resetDay() {
 
 // --- STATS ---
 function renderStats() {
-  const today = new Date(); today.setHours(0,0,0,0);
-  let totalDone=0, totalExpected=0, totalMissed=0, streak=0, currentStreak=0;
-  let daysElapsed=0;
-
+  const today=new Date(); today.setHours(0,0,0,0);
+  let totalDone=0, totalExpected=0, totalMissed=0, streak=0, currentStreak=0, daysElapsed=0;
   for (let d=1; d<=25; d++) {
     const date=getDateForDay(d); date.setHours(0,0,0,0);
     if (date>today) break;
     daysElapsed++;
-    const cfg=getCfg(d);
-    const dc=state["day_"+d]||{};
+    const cfg=getCfg(d), dc=state["day_"+d]||{};
     const done=Object.values(dc).filter(Boolean).length;
-    const full = done>=cfg.tablets;
+    const full=done>=cfg.tablets;
     totalExpected+=cfg.tablets;
     totalDone+=Math.min(done,cfg.tablets);
     if(!full) totalMissed+=(cfg.tablets-done);
-    if(full) { currentStreak++; streak=Math.max(streak,currentStreak); }
-    else currentStreak=0;
+    if(full){currentStreak++;streak=Math.max(streak,currentStreak);}else currentStreak=0;
   }
-
-  const pct = totalExpected>0 ? Math.round((totalDone/totalExpected)*100) : 0;
-
-  // stats cards
-  const grid = document.getElementById("stats-grid");
-  grid.innerHTML = `
-    <div class="stat-card">
-      <div class="stat-value">${daysElapsed}</div>
-      <div class="stat-label">Dni kuracji</div>
-      <div class="stat-sub">z 25 łącznie</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value">${totalDone}</div>
-      <div class="stat-label">Dawki przyjęte</div>
-      <div class="stat-sub">z ${totalExpected} planowanych</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value ${totalMissed>0?"orange":""}">${totalMissed}</div>
-      <div class="stat-label">Pominięte dawki</div>
-      <div class="stat-sub">${totalMissed===0?"Świetnie!":"Uzupełniaj!"}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value white">${currentStreak}</div>
-      <div class="stat-label">Seria dni</div>
-      <div class="stat-sub">rekord: ${streak} dni</div>
-    </div>
+  const pct=totalExpected>0?Math.round((totalDone/totalExpected)*100):0;
+  document.getElementById("stats-grid").innerHTML=`
+    <div class="stat-card"><div class="stat-value">${daysElapsed}</div><div class="stat-label">Dni kuracji</div><div class="stat-sub">z 25 łącznie</div></div>
+    <div class="stat-card"><div class="stat-value">${totalDone}</div><div class="stat-label">Dawki przyjęte</div><div class="stat-sub">z ${totalExpected} planowanych</div></div>
+    <div class="stat-card"><div class="stat-value ${totalMissed>0?"orange":""}">${totalMissed}</div><div class="stat-label">Pominięte dawki</div><div class="stat-sub">${totalMissed===0?"Świetnie!":"Uzupełniaj!"}</div></div>
+    <div class="stat-card"><div class="stat-value white">${currentStreak}</div><div class="stat-label">Seria dni</div><div class="stat-sub">rekord: ${streak} dni</div></div>
   `;
-
-  // bar chart — last 14 days
-  const barChart = document.getElementById("bar-chart");
-  barChart.innerHTML = "";
-  const chartDays = [];
+  const barChart=document.getElementById("bar-chart");
+  barChart.innerHTML="";
+  const chartDays=[];
   for (let d=1; d<=25; d++) {
     const date=getDateForDay(d); date.setHours(0,0,0,0);
-    if (date>today) {
-      // add up to 3 future days for context
-      if (chartDays.length>=11) break;
-      chartDays.push({d, done:0, total:getCfg(d).tablets, future:true});
-    } else {
-      chartDays.push({d, done:Object.values(state["day_"+d]||{}).filter(Boolean).length, total:getCfg(d).tablets, future:false});
-    }
+    if (date>today) { if(chartDays.length>=11) break; chartDays.push({d,done:0,total:getCfg(d).tablets,future:true}); }
+    else chartDays.push({d,done:Object.values(state["day_"+d]||{}).filter(Boolean).length,total:getCfg(d).tablets,future:false});
   }
-  const last14 = chartDays.slice(-14);
-  const maxVal = Math.max(...last14.map(x=>x.total), 1);
-
+  const last14=chartDays.slice(-14);
+  const maxVal=Math.max(...last14.map(x=>x.total),1);
   last14.forEach(({d,done,total,future})=>{
-    const date=getDateForDay(d);
-    const col=document.createElement("div");
-    col.className="bar-col";
+    const col=document.createElement("div"); col.className="bar-col";
     let barClass="bar ", barH;
-    if (future) { barClass+="future"; barH=Math.round((total/maxVal)*60); }
-    else if (done>=total) { barClass+="full"; barH=Math.round((done/maxVal)*60); }
-    else if (done>0) { barClass+="partial"; barH=Math.round((done/maxVal)*60); }
-    else { barClass+="zero"; barH=4; }
+    if(future){barClass+="future";barH=Math.round((total/maxVal)*60);}
+    else if(done>=total){barClass+="full";barH=Math.round((done/maxVal)*60);}
+    else if(done>0){barClass+="partial";barH=Math.round((done/maxVal)*60);}
+    else{barClass+="zero";barH=4;}
     col.innerHTML=`<div class="${barClass}" style="height:${barH}px"></div><div class="bar-label">${d}</div>`;
     barChart.appendChild(col);
   });
-
-  // adherence
   document.getElementById("adherence-bar").style.width=pct+"%";
   document.getElementById("adherence-pct").textContent=pct+"%";
 }
 
 // --- MILESTONES ---
 function renderMilestones() {
-  const now = new Date();
-  const smokeFreeMs = now - SMOKE_FREE_DATE;
-  const isSmokeFreePast = smokeFreeMs > 0;
-  const hoursSmokeFree = isSmokeFreePast ? smokeFreeMs/3600000 : 0;
-
-  // Smoke free timer
-  const sfCard = document.getElementById("smoke-free-card");
-  const sfTime = document.getElementById("smoke-free-time");
-  const sfSub = document.getElementById("smoke-free-sub");
-
+  const now=new Date();
+  const smokeFreeMs=now-SMOKE_FREE_DATE;
+  const isSmokeFreePast=smokeFreeMs>0;
+  const hoursSmokeFree=isSmokeFreePast?smokeFreeMs/3600000:0;
+  const sfCard=document.getElementById("smoke-free-card");
+  const sfTime=document.getElementById("smoke-free-time");
+  const sfSub=document.getElementById("smoke-free-sub");
   if (isSmokeFreePast) {
-    const days = Math.floor(hoursSmokeFree/24);
-    const hrs = Math.floor(hoursSmokeFree%24);
-    const mins = Math.floor((smokeFreeMs/60000)%60);
-    if (days>0) sfTime.textContent = days+"d "+hrs+"h "+mins+"m";
-    else sfTime.textContent = hrs+"h "+mins+"m";
-    sfSub.textContent = "Tak trzymaj! Każda minuta się liczy.";
+    const days=Math.floor(hoursSmokeFree/24), hrs=Math.floor(hoursSmokeFree%24), mins=Math.floor((smokeFreeMs/60000)%60);
+    sfTime.textContent=days>0?days+"d "+hrs+"h "+mins+"m":hrs+"h "+mins+"m";
+    sfTime.style.color="#4ECDC4";
+    sfSub.textContent="Tak trzymaj! Każda minuta się liczy.";
     sfCard.style.borderColor="#4ECDC440";
+    sfCard.style.background="linear-gradient(135deg,#1a2e2b,#1e2636)";
   } else {
-    const daysToGo = Math.ceil(-smokeFreeMs/86400000);
-    sfTime.textContent = "Za "+daysToGo+(daysToGo===1?" dzień":" dni");
-    sfSub.textContent = "Dzień 5. to Twój dzień zero — już niedługo!";
+    const daysToGo=Math.ceil(-smokeFreeMs/86400000);
+    sfTime.textContent="Za "+daysToGo+(daysToGo===1?" dzień":" dni");
+    sfTime.style.color="#f5a623";
+    sfSub.textContent="Dzień 5. to Twój dzień zero — już niedługo!";
     sfCard.style.borderColor="#f5a62340";
     sfCard.style.background="linear-gradient(135deg,#2a2010,#1e2636)";
-    document.getElementById("smoke-free-time").style.color="#f5a623";
   }
-
-  // Milestones list
-  const list = document.getElementById("milestone-list");
+  const list=document.getElementById("milestone-list");
   list.innerHTML="";
   let nextFound=false;
   MILESTONES.forEach(ms=>{
-    const unlocked = hoursSmokeFree>=ms.hours;
-    const isNext = !unlocked && !nextFound;
+    const unlocked=hoursSmokeFree>=ms.hours;
+    const isNext=!unlocked&&!nextFound;
     if(isNext) nextFound=true;
-
     let timeStr="";
     if(unlocked){
       const unlockedAt=new Date(SMOKE_FREE_DATE.getTime()+ms.hours*3600000);
@@ -789,7 +667,6 @@ function renderMilestones() {
       const daysLeft=Math.ceil((eta-now)/86400000);
       timeStr=daysLeft<=0?"Wkrótce!":"Za ~"+daysLeft+(daysLeft===1?" dzień":" dni");
     }
-
     const el=document.createElement("div");
     el.className="milestone"+(unlocked?" unlocked":isNext?" next-ms":"");
     el.innerHTML=`
@@ -809,31 +686,29 @@ function renderKuracja() {
   const today=new Date(); today.setHours(0,0,0,0);
   let overallDone=0;
   for(let d=1;d<=25;d++){
-    const c=getCfg(d);const dc=state["day_"+d]||{};
+    const c=getCfg(d),dc=state["day_"+d]||{};
     if(Object.values(dc).filter(Boolean).length>=c.tablets) overallDone++;
   }
   document.getElementById("overall-count").innerHTML=overallDone+"<span>/25</span>";
   document.getElementById("overall-bar").style.width=(overallDone/25*100)+"%";
   document.getElementById("overall-done-msg").style.display=overallDone===25?"":"none";
-
   const list=document.getElementById("day-list");
   list.innerHTML="";
   for(let day=1;day<=25;day++){
-    const cfg=getCfg(day);const dc=state["day_"+day]||{};
+    const cfg=getCfg(day),dc=state["day_"+day]||{};
     const doneCount=Object.values(dc).filter(Boolean).length;
     const isDone=doneCount>=cfg.tablets;
     const date=getDateForDay(day);date.setHours(0,0,0,0);
     const isToday=date.getTime()===today.getTime();
     const isFuture=date>today;
-    let itemClass="day-item"+(isDone?" day-done":isToday?" day-today":"");
-    let nameColor=isDone?"color-done":isToday?"color-today":isFuture?"color-future":"color-past";
+    const itemClass="day-item"+(isDone?" day-done":isToday?" day-today":"");
+    const nameColor=isDone?"color-done":isToday?"color-today":isFuture?"color-future":"color-past";
     const todayBadge=isToday?'<span class="today-badge">DZIŚ</span>':"";
     const zeroBadge=day===5&&!isDone?'<span class="zero-badge">🚭 ZERO OD DZIŚ</span>':"";
-    const cbClass="day-cb"+(isDone?" checked":"");
     const item=document.createElement("div");
     item.className=itemClass;
     item.innerHTML=`
-      <div class="${cbClass}">${isDone?"✓":""}</div>
+      <div class="day-cb${isDone?" checked":""}">${isDone?"✓":""}</div>
       <div style="flex:1">
         <div><span class="day-name ${nameColor}">Dzień ${day}</span>${todayBadge}${zeroBadge}</div>
         <div class="day-meta">${formatDate(date)} · ${cfg.tablets} tabl. · ${cfg.label}</div>
@@ -853,9 +728,12 @@ function renderKuracjaIfActive() {
   if(document.getElementById("view-kuracja").classList.contains("active")) renderKuracja();
 }
 
-// --- INIT ---
 renderDaily();
-setInterval(()=>{ renderDaily(); renderKuracjaIfActive(); if(document.getElementById("view-milestones").classList.contains("active")) renderMilestones(); }, 60000);
+setInterval(()=>{
+  renderDaily();
+  renderKuracjaIfActive();
+  if(document.getElementById("view-milestones").classList.contains("active")) renderMilestones();
+}, 60000);
 </script>
 </body>
 </html>
